@@ -5,13 +5,14 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
-
+$totalHargaSebelumDiskon = 0;
 $totalHarga = 0;
 $berat = '';
 $jenisLayanan = '';
 $kecepatan = '';
 $membership = '';
 $diskon = 0;
+$kuponPotongan = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $berat = ceil($_POST['berat']);
@@ -37,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $totalHarga += 2000 * $berat;
     }
 
+    $totalHargaSebelumDiskon = $totalHarga;
+
     if ($membership === "Member") {
         $diskon = 0.1 * $totalHarga; 
     }
@@ -48,8 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($_SESSION['laundry_count'] == 6) {
-        $totalHarga -= 2 * $hargaPerKilo; 
-        $_SESSION['laundry_count'] = 0;
+        $kuponPotongan = 2 * $hargaPerKilo; 
+        $totalHarga -= $kuponPotongan; 
+        $_SESSION['laundry_count'] = 0; 
     }
 
     $totalHarga -= $diskon; 
@@ -187,9 +191,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if ($totalHarga > 0): ?>
         <div class="result">
             <h3>Hasil Perhitungan:</h3>
-            <p>Total Harga: Rp <?= number_format($totalHarga, 0, ',', '.'); ?></p>
+            <p>Total Harga: Rp <?= number_format($totalHargaSebelumDiskon, 0, ',', '.'); ?></p>
             <?php if ($diskon > 0): ?>
                 <p>Diskon Membership: Rp <?= number_format($diskon, 0, ',', '.'); ?></p>
+                <p>Total Harus Dibayar: Rp <?= number_format($totalHarga, 0, ',', '.'); ?></p>
+            <?php endif; ?>
+            <?php if ($kuponPotongan > 0): ?>
+                <p>Potongan Kupon (Gratis 2 kg): Rp <?= number_format($kuponPotongan, 0, ',', '.'); ?></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

@@ -24,6 +24,25 @@ if (!isset($_SESSION['username'])) {
                 window.location.href = $(this).attr('href');
             });
         });
+
+        $(document).ready(function() {
+            let currentSlide = 0;
+            const slides = $('.slide img');
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.hide();
+                slides.eq(index).fadeIn();
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            showSlide(currentSlide); // Show the first slide
+            setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        });
     </script>
     <style>
         header {
@@ -97,8 +116,12 @@ if (!isset($_SESSION['username'])) {
     </header>
     <script src="script.js"></script>
 
-    <div class="slide">
-        <img src="img/banner1.jpg" alt="Banner">
+    <div class="slider">
+        <div class="slide">
+            <img src="img/banner1.jpg" alt="Banner 1">
+            <img src="img/banner2.jpg" alt="Banner 2">
+            <img src="img/banner3.jpg" alt="Banner 3">
+        </div>
     </div>
 
     <h2>Laundry Nova</h2>
