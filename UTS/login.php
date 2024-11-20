@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$valid_username = 'nova'; // Contoh username
-$valid_password = 'Nova1'; // Contoh password
+$valid_username = 'nova'; 
+$valid_password = 'Nova1';
 
 if (isset($_SESSION['username'])) {
     header("Location: home.php");
@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validasi
     if (empty($username) || empty($password)) {
         $error_message = "Harus terisi";
     } elseif (strlen($password) > 6) {

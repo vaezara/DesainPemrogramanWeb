@@ -40,8 +40,8 @@ if (!isset($_SESSION['username'])) {
                 showSlide(currentSlide);
             }
 
-            showSlide(currentSlide); // Show the first slide
-            setInterval(nextSlide, 3000); // Change slide every 3 seconds
+            showSlide(currentSlide);
+            setInterval(nextSlide, 3000);
         });
     </script>
     <style>
