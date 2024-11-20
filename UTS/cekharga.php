@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <form method="POST" id="cekHargaForm">
         <label for="berat">Berat (kg):</label>
-        <input type="text" id="berat" name="berat" min="1" required>
+        <input type="number" id="berat" name="berat" min="1" required>
 
         <label for="jenis_layanan">Jenis Layanan:</label>
         <select id="jenis_layanan" name="jenis_layanan" required>
